@@ -9,8 +9,7 @@ import Loader from "@/components/ui/Loader";
 
 // Create a component for the actual content
 async function RequestsContent() {
-  const cookieStore = await cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createServerComponentClient({ cookies });
 
   // Get authenticated user from auth server
   const {
@@ -109,16 +108,16 @@ async function RequestsContent() {
           </div>
         </div>
       ) : (
-          <div className="rounded-lg border p-8 text-center">
-            <Clock className="mx-auto h-12 w-12 text-muted-foreground" />
-            <h3 className="mt-4 text-lg font-semibold">No pending requests</h3>
-            <p className="mt-2 text-sm text-muted-foreground">
+        <div className="rounded-lg border p-8 text-center">
+          <Clock className="mx-auto h-12 w-12 text-muted-foreground" />
+          <h3 className="mt-4 text-lg font-semibold">No pending requests</h3>
+          <p className="mt-2 text-sm text-muted-foreground">
             All caught up. New requests will appear here.
-            </p>
-            <Link href="/faculty/history" className="mt-4 inline-block">
+          </p>
+          <Link href="/faculty/history" className="mt-4 inline-block">
             <Button variant="outline">View history</Button>
-            </Link>
-          </div>
+          </Link>
+        </div>
       )}
     </div>
   );

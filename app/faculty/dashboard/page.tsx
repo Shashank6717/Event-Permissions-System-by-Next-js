@@ -10,8 +10,7 @@ import Loader from "@/components/ui/Loader";
 
 // Create a component for the actual content
 async function DashboardContent() {
-  const cookieStore = await cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createServerComponentClient({ cookies });
 
   // Get authenticated user from auth server
   const {
@@ -32,19 +31,19 @@ async function DashboardContent() {
   const department = userData?.department || "";
 
   // Count permission requests by status
-  const { data: pendingCount } = await supabase
+  const { count: pendingCount } = await supabase
     .from("permission_requests")
     .select("id", { count: "exact", head: true })
     .eq("department_id", department)
     .eq("status", RequestStatus.PENDING);
 
-  const { data: approvedCount } = await supabase
+  const { count: approvedCount } = await supabase
     .from("permission_requests")
     .select("id", { count: "exact", head: true })
     .eq("department_id", department)
     .eq("status", RequestStatus.APPROVED);
 
-  const { data: rejectedCount } = await supabase
+  const { count: rejectedCount } = await supabase
     .from("permission_requests")
     .select("id", { count: "exact", head: true })
     .eq("department_id", department)
@@ -86,7 +85,7 @@ async function DashboardContent() {
             <Clock className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{pendingCount?.count || 0}</div>
+            <div className="text-2xl font-bold">{pendingCount ?? 0}</div>
           </CardContent>
         </Card>
         <Card>
@@ -97,9 +96,7 @@ async function DashboardContent() {
             <CheckCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {approvedCount?.count || 0}
-            </div>
+            <div className="text-2xl font-bold">{approvedCount ?? 0}</div>
           </CardContent>
         </Card>
         <Card>
@@ -110,9 +107,7 @@ async function DashboardContent() {
             <XCircle className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">
-              {rejectedCount?.count || 0}
-            </div>
+            <div className="text-2xl font-bold">{rejectedCount ?? 0}</div>
           </CardContent>
         </Card>
         <Card>

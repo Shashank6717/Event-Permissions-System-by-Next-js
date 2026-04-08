@@ -9,8 +9,7 @@ import { Suspense } from "react";
 
 // Create a component for the actual content
 async function HistoryContent() {
-  const cookieStore = await cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createServerComponentClient({ cookies });
 
   // Get authenticated user from auth server
   const {
@@ -101,7 +100,7 @@ async function HistoryContent() {
                         {getStatusIcon(request.status)}
                         <span
                           className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium ${getStatusBadgeClass(
-                            request.status
+                            request.status,
                           )}`}
                         >
                           {request.status}
@@ -152,11 +151,13 @@ export default async function RequestHistory() {
         </p>
       </div>
 
-      <Suspense fallback={
-        <div className="flex justify-center items-center h-64">
-          <Loader />
-        </div>
-      }>
+      <Suspense
+        fallback={
+          <div className="flex justify-center items-center h-64">
+            <Loader />
+          </div>
+        }
+      >
         <HistoryContent />
       </Suspense>
     </div>

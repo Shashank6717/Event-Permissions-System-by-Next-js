@@ -9,8 +9,7 @@ import Loader from "@/components/ui/Loader";
 
 // Create a component for the actual content
 async function MyRequestsContent() {
-  const cookieStore = await cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createServerComponentClient({ cookies });
 
   // Get authenticated user from auth server
   const {
