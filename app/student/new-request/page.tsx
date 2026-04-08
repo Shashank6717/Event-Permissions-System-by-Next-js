@@ -75,7 +75,8 @@ export default function NewRequest() {
         const proofFilePath = `${user.id}/proofs/${Date.now()}-${
           formData.proofFile.name
         }`;
-        const { error: proofUploadError } = await supabase.storage
+        const { error: proofUploadError, data: proofData } =
+          await supabase.storage
             .from("documents")
             .upload(proofFilePath, formData.proofFile);
 
@@ -95,7 +96,8 @@ export default function NewRequest() {
         const letterFilePath = `${user.id}/letters/${Date.now()}-${
           formData.letterFile.name
         }`;
-        const { error: letterUploadError } = await supabase.storage
+        const { error: letterUploadError, data: letterData } =
+          await supabase.storage
             .from("documents")
             .upload(letterFilePath, formData.letterFile);
 
