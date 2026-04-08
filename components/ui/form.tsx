@@ -2,7 +2,7 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Label } from "./label";
 
-interface FormProps extends React.HTMLAttributes<HTMLDivElement> {}
+type FormProps = React.HTMLAttributes<HTMLDivElement>;
 
 const Form = React.forwardRef<HTMLDivElement, FormProps>(
   ({ className, ...props }, ref) => {

@@ -10,7 +10,7 @@ export default async function FacultyLayout({
   children: React.ReactNode;
 }) {
   const cookieStore = await cookies();
-  const supabase = createServerComponentClient({ cookies: () => cookieStore });
+  const supabase = createServerComponentClient({ cookies: async () => cookieStore });
 
   // Check if user is authenticated with an auth-server verified user
   const {
