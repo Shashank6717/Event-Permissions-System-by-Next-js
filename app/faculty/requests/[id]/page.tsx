@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { use } from "react";
 import {
   Card,
   CardContent,
@@ -18,13 +19,13 @@ import supabase from "@/lib/supabase";
 import { ExternalLink, FileText, Calendar, MapPin } from "lucide-react";
 
 interface RequestDetailProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default function RequestDetail({ params }: RequestDetailProps) {
-  const { id } = params;
+  const { id } = use(params);
   const router = useRouter();
   const [request, setRequest] = useState<
     Database["public"]["Tables"]["permission_requests"]["Row"] | null
