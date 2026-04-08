@@ -142,14 +142,19 @@ export default function NewRequest() {
   };
 
   return (
-    <div className="max-w-3xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">New Permission Request</h1>
+    <div className="max-w-3xl mx-auto space-y-6">
+      <div>
+        <h1 className="text-3xl font-bold">New request</h1>
+        <p className="text-muted-foreground">
+          Share the details and we will route the approval to the right team.
+        </p>
+      </div>
 
-      <Card>
+      <Card className="bg-white/80 shadow-sm">
         <CardHeader>
-          <CardTitle>Event Details</CardTitle>
+          <CardTitle>Event details</CardTitle>
           <CardDescription>
-            Fill in the details about the event you need permission for
+            Provide clear, accurate information to speed up review.
           </CardDescription>
         </CardHeader>
         <form onSubmit={handleSubmit}>
@@ -159,7 +164,7 @@ export default function NewRequest() {
               <Input
                 id="eventName"
                 name="eventName"
-                placeholder="Enter event name"
+                placeholder="e.g., Inter-College Hackathon"
                 value={formData.eventName}
                 onChange={handleChange}
                 required
@@ -183,7 +188,7 @@ export default function NewRequest() {
                 <Input
                   id="eventLocation"
                   name="eventLocation"
-                  placeholder="Enter event location"
+                  placeholder="e.g., Main Auditorium"
                   value={formData.eventLocation}
                   onChange={handleChange}
                   required
@@ -192,13 +197,11 @@ export default function NewRequest() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="department">
-                Department to Request Permission From
-              </Label>
+              <Label htmlFor="department">Department</Label>
               <Input
                 id="department"
                 name="department"
-                placeholder="Enter department code"
+                placeholder="e.g., CSE"
                 value={formData.department}
                 onChange={handleChange}
                 required
@@ -210,7 +213,7 @@ export default function NewRequest() {
               <Input
                 id="reason"
                 name="reason"
-                placeholder="Brief reason for attending"
+                placeholder="Short reason (2-3 lines)"
                 value={formData.reason}
                 onChange={handleChange}
                 required
@@ -222,7 +225,7 @@ export default function NewRequest() {
               <Textarea
                 id="description"
                 name="description"
-                placeholder="Provide a detailed description about the event and why you want to attend"
+                placeholder="Add any helpful context, schedule, or goals."
                 value={formData.description}
                 onChange={handleChange}
                 required
@@ -230,9 +233,7 @@ export default function NewRequest() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="proofFile">
-                Proof of Event (Invitation, etc.)
-              </Label>
+              <Label htmlFor="proofFile">Proof of event (invite, brochure)</Label>
               <Input
                 id="proofFile"
                 name="proofFile"
@@ -243,7 +244,7 @@ export default function NewRequest() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="letterFile">Request Letter</Label>
+              <Label htmlFor="letterFile">Request letter</Label>
               <Input
                 id="letterFile"
                 name="letterFile"
@@ -253,11 +254,11 @@ export default function NewRequest() {
               />
             </div>
 
-            {error && <p className="text-sm text-red-500">{error}</p>}
+            {error && <p className="text-sm text-red-600">{error}</p>}
           </CardContent>
           <CardFooter>
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Submitting..." : "Submit Request"}
+              {loading ? "Submitting..." : "Submit request"}
             </Button>
           </CardFooter>
         </form>

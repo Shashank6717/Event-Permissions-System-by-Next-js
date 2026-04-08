@@ -42,17 +42,22 @@ async function MyRequestsContent() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">My Permission Requests</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">Your requests</h1>
+          <p className="text-muted-foreground">
+            Track every request in one clean, simple view.
+          </p>
+        </div>
         <Link href="/student/new-request">
-          <Button>New Request</Button>
+          <Button>New request</Button>
         </Link>
       </div>
 
       {requests && requests.length > 0 ? (
         <div className="rounded-lg border overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[760px] text-sm">
               <thead className="bg-muted/50">
                 <tr>
                   <th className="py-3 px-4 text-left font-medium">Event</th>
@@ -123,12 +128,12 @@ async function MyRequestsContent() {
       ) : (
         <div className="rounded-lg border p-8 text-center">
           <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
-          <h3 className="mt-4 text-lg font-semibold">No requests found</h3>
+          <h3 className="mt-4 text-lg font-semibold">No requests yet</h3>
           <p className="mt-2 text-sm text-muted-foreground">
-            You haven't created any permission requests yet.
+            When you submit a request, it will appear here.
           </p>
           <Link href="/student/new-request" className="mt-4 inline-block">
-            <Button>Create Request</Button>
+            <Button>Create request</Button>
           </Link>
         </div>
       )}

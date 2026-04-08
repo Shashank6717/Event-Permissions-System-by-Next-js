@@ -175,7 +175,7 @@ export default async function Home() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-gradient-to-b from-white to-gray-50">
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-white via-emerald-50/30 to-gray-50">
       <header className="sticky top-0 z-40 w-full border-b bg-white/95 backdrop-blur supports-[backdrop-filter]:bg-white/60 shadow-xl">
         <div className="container flex h-16 items-center justify-between px-4 md:px-6">
           <Link className="flex items-center gap-2" href="/">
@@ -184,10 +184,10 @@ export default async function Home() {
           </Link>
           <nav className="flex items-center gap-6">
             <Link className="text-sm font-medium text-gray-600 transition-colors hover:text-emerald-600" href="/login">
-              Login
+              Sign in
             </Link>
             <Link href="/register">
-              <Button className="bg-emerald-600 hover:bg-emerald-700">Register</Button>
+              <Button className="bg-emerald-600 hover:bg-emerald-700">Create account</Button>
             </Link>
           </nav>
         </div>
@@ -200,21 +200,21 @@ export default async function Home() {
             <div className="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
               <div className="flex flex-col justify-center space-y-6">
                 <div className="space-y-4">
-                  <div className="inline-block rounded-lg bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
-                    For Students & Faculty
+                  <div className="inline-block rounded-full bg-emerald-100 px-3 py-1 text-sm text-emerald-700">
+                    Made for students and faculty
                   </div>
                   <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl lg:text-6xl/none">
-                    Streamline Event <span className="text-emerald-600">Permissions</span>
+                    Event permissions, <span className="text-emerald-600">made easy</span>
                   </h1>
-                  <p className="max-w-[600px] text-lg text-gray-600 md:text-xl">
-                    A digital solution to the cumbersome process of obtaining permissions for college events and
-                    external competitions.
+                  <p className="max-w-[620px] text-lg text-gray-600 md:text-xl">
+                    Request, track, and get approvals without the paper chase. A calm, transparent flow for campus
+                    events and external competitions.
                   </p>
                 </div>
                 <div className="flex flex-col gap-3 min-[400px]:flex-row">
                   <Link href="/register">
                     <Button size="lg" className="px-8 bg-emerald-600 hover:bg-emerald-700">
-                      Get Started
+                      Create free account
                     </Button>
                   </Link>
                   <Link href="/login">
@@ -223,21 +223,21 @@ export default async function Home() {
                       variant="outline"
                       className="px-8 border-emerald-600 text-emerald-600 hover:bg-emerald-50"
                     >
-                      Login
+                      Sign in
                     </Button>
                   </Link>
                 </div>
               </div>
               <div className="relative hidden lg:block">
                 <div className="absolute -left-4 -top-4 h-72 w-72 rounded-full bg-emerald-100 opacity-70 blur-3xl"></div>
-                <div className="relative rounded-xl border bg-white p-6 shadow-lg">
+                <div className="relative rounded-xl border bg-white p-6 shadow-lg ring-1 ring-emerald-100">
                   <div className="flex items-center gap-4 border-b pb-4 mb-4">
                     <div className="rounded-full bg-emerald-100 p-2">
                       <School className="h-6 w-6 text-emerald-600" />
                     </div>
                     <div>
                       <h3 className="font-semibold">College Tech Fest</h3>
-                      <p className="text-sm text-gray-500">Permission Request</p>
+                      <p className="text-sm text-gray-500">Permission request</p>
                     </div>
                     <span className="ml-auto rounded-full bg-emerald-100 px-3 py-1 text-xs font-medium text-emerald-700">
                       Approved
@@ -246,7 +246,7 @@ export default async function Home() {
                   <div className="space-y-3">
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-500">Date:</span>
-                      <span className="font-medium">May 15-16, 2024</span>
+                      <span className="font-medium">May 15-16</span>
                     </div>
                     <div className="flex justify-between text-sm">
                       <span className="text-gray-500">Location:</span>
@@ -267,9 +267,9 @@ export default async function Home() {
         <section className="w-full py-12 md:py-24 bg-white">
           <div className="container px-4 md:px-6">
             <div className="mx-auto max-w-3xl text-center mb-10 md:mb-16">
-              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">Why Choose Our Platform?</h2>
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">Why people love it</h2>
               <p className="mt-4 text-lg text-gray-500">
-                Designed to make the permission process simple, transparent, and efficient.
+                A lighter, clearer way to handle approvals across campus.
               </p>
             </div>
             <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
@@ -277,33 +277,33 @@ export default async function Home() {
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100">
                   <CheckCircle className="h-6 w-6 text-emerald-600" />
                 </div>
-                <h3 className="mb-2 text-xl font-bold">Digital Permissions</h3>
+                <h3 className="mb-2 text-xl font-bold">Paperless requests</h3>
                 <p className="text-gray-500">
-                  Submit requests online without printing papers or physically tracking down faculty.
+                  Submit in minutes, no printing or chasing signatures.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6 shadow-sm transition-all hover:shadow-md">
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100">
                   <CheckCircle className="h-6 w-6 text-emerald-600" />
                 </div>
-                <h3 className="mb-2 text-xl font-bold">Transparent Process</h3>
+                <h3 className="mb-2 text-xl font-bold">Clear status</h3>
                 <p className="text-gray-500">
-                  Track the status of your requests in real-time and receive notifications.
+                  See approvals in real time and get gentle notifications.
                 </p>
               </div>
               <div className="rounded-lg border bg-white p-6 shadow-sm transition-all hover:shadow-md">
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100">
                   <CheckCircle className="h-6 w-6 text-emerald-600" />
                 </div>
-                <h3 className="mb-2 text-xl font-bold">Save Time</h3>
-                <p className="text-gray-500">No more waiting in lines or missing lectures to get permissions.</p>
+                <h3 className="mb-2 text-xl font-bold">Less waiting</h3>
+                <p className="text-gray-500">Skip long lines and get back to class sooner.</p>
               </div>
               <div className="rounded-lg border bg-white p-6 shadow-sm transition-all hover:shadow-md">
                 <div className="mb-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100">
                   <CheckCircle className="h-6 w-6 text-emerald-600" />
                 </div>
-                <h3 className="mb-2 text-xl font-bold">Eco-Friendly</h3>
-                <p className="text-gray-500">Reduce paper waste by submitting and storing documents digitally.</p>
+                <h3 className="mb-2 text-xl font-bold">Greener campus</h3>
+                <p className="text-gray-500">Reduce paper waste with clean, digital records.</p>
               </div>
             </div>
           </div>
@@ -315,16 +315,16 @@ export default async function Home() {
             <div className="flex flex-col items-center justify-center space-y-4 text-center">
               <div className="space-y-2">
                 <h2 className="text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
-                  Ready to simplify your event permissions?
+                  Ready to keep approvals simple?
                 </h2>
                 <p className="mx-auto max-w-[700px] text-gray-600 md:text-xl">
-                  Join hundreds of students and faculty members who are already using our platform.
+                  Join students and faculty who already use a calmer, clearer workflow.
                 </p>
               </div>
               <div className="flex flex-col gap-2 min-[400px]:flex-row">
                 <Link href="/register">
                   <Button size="lg" className="px-8 bg-emerald-600 hover:bg-emerald-700">
-                    Create an Account
+                    Create free account
                   </Button>
                 </Link>
                 <Link href="/login">
@@ -333,7 +333,7 @@ export default async function Home() {
                     variant="outline"
                     className="px-8 border-emerald-600 text-emerald-600 hover:bg-emerald-50"
                   >
-                    Sign In
+                    Sign in
                   </Button>
                 </Link>
               </div>
@@ -345,7 +345,7 @@ export default async function Home() {
       <footer className="w-full border-t bg-white py-6">
         <div className="container flex flex-col items-center justify-between gap-4 px-4 md:flex-row md:px-6">
           <p className="text-center text-sm text-gray-500 md:text-left">
-            © 2024 Event Permission System. All rights reserved.
+            (c) 2024 Event Permission System. All rights reserved.
           </p>
           <nav className="flex gap-4 sm:gap-6">
             <Link className="text-sm text-gray-500 hover:text-emerald-600 underline-offset-4 hover:underline" href="/">

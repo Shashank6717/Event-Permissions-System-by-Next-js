@@ -67,9 +67,9 @@ async function DashboardContent() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Faculty Dashboard</h1>
+        <h1 className="text-3xl font-bold">Faculty overview</h1>
         <p className="text-muted-foreground">
-          Manage student event permission requests for {department} department
+          A clear view of requests for the {department} department.
         </p>
       </div>
 
@@ -125,53 +125,55 @@ async function DashboardContent() {
       </div>
 
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Recent Pending Requests</h2>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="text-xl font-semibold">Pending requests</h2>
           <Link href="/faculty/requests">
-            <Button>View All Requests</Button>
+            <Button>View all</Button>
           </Link>
         </div>
 
         {recentPendingRequests?.length ? (
           <div className="rounded-md border">
-            <div className="p-4">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b">
-                    <th className="py-2 text-left font-medium">Student</th>
-                    <th className="py-2 text-left font-medium">Event</th>
-                    <th className="py-2 text-left font-medium">Date</th>
-                    <th className="py-2 text-left font-medium">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentPendingRequests.map((request) => (
-                    <tr key={request.id} className="border-b last:border-0">
-                      <td className="py-2">
-                        <div>
-                          <div className="font-medium">
-                            {request.student_name}
-                          </div>
-                          <div className="text-sm text-muted-foreground">
-                            {request.student_roll_number}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="py-2">{request.event_name}</td>
-                      <td className="py-2">
-                        {new Date(request.event_date).toLocaleDateString()}
-                      </td>
-                      <td className="py-2">
-                        <Link href={`/faculty/requests/${request.id}`}>
-                          <Button variant="outline" size="sm">
-                            View Details
-                          </Button>
-                        </Link>
-                      </td>
+            <div className="overflow-x-auto">
+              <div className="p-4">
+                <table className="w-full min-w-[640px] text-sm">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="py-2 text-left font-medium">Student</th>
+                      <th className="py-2 text-left font-medium">Event</th>
+                      <th className="py-2 text-left font-medium">Date</th>
+                      <th className="py-2 text-left font-medium">Actions</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {recentPendingRequests.map((request) => (
+                      <tr key={request.id} className="border-b last:border-0">
+                        <td className="py-2">
+                          <div>
+                            <div className="font-medium">
+                              {request.student_name}
+                            </div>
+                            <div className="text-sm text-muted-foreground">
+                              {request.student_roll_number}
+                            </div>
+                          </div>
+                        </td>
+                        <td className="py-2">{request.event_name}</td>
+                        <td className="py-2">
+                          {new Date(request.event_date).toLocaleDateString()}
+                        </td>
+                        <td className="py-2">
+                          <Link href={`/faculty/requests/${request.id}`}>
+                            <Button variant="outline" size="sm">
+                              View details
+                            </Button>
+                          </Link>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         ) : (
@@ -179,8 +181,7 @@ async function DashboardContent() {
             <Clock className="mx-auto h-12 w-12 text-muted-foreground" />
             <h3 className="mt-4 text-lg font-semibold">No pending requests</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              All caught up! There are no pending permission requests at the
-              moment.
+              All caught up. New requests will appear here.
             </p>
           </div>
         )}

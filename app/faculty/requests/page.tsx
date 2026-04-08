@@ -41,16 +41,16 @@ async function RequestsContent() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Pending Requests</h1>
+        <h1 className="text-3xl font-bold">Pending requests</h1>
         <p className="text-muted-foreground">
-          Review and respond to student permission requests
+          Review, respond, and keep approvals moving.
         </p>
       </div>
 
       {pendingRequests?.length ? (
         <div className="rounded-lg border overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[760px] text-sm">
               <thead className="bg-muted/50">
                 <tr>
                   <th className="py-3 px-4 text-left font-medium">Student</th>
@@ -105,17 +105,16 @@ async function RequestsContent() {
           </div>
         </div>
       ) : (
-        <div className="rounded-lg border p-8 text-center">
-          <Clock className="mx-auto h-12 w-12 text-muted-foreground" />
-          <h3 className="mt-4 text-lg font-semibold">No pending requests</h3>
-          <p className="mt-2 text-sm text-muted-foreground">
-            All caught up! There are no pending permission requests at the
-            moment.
-          </p>
-          <Link href="/faculty/history" className="mt-4 inline-block">
-            <Button variant="outline">View Request History</Button>
-          </Link>
-        </div>
+          <div className="rounded-lg border p-8 text-center">
+            <Clock className="mx-auto h-12 w-12 text-muted-foreground" />
+            <h3 className="mt-4 text-lg font-semibold">No pending requests</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+            All caught up. New requests will appear here.
+            </p>
+            <Link href="/faculty/history" className="mt-4 inline-block">
+            <Button variant="outline">View history</Button>
+            </Link>
+          </div>
       )}
     </div>
   );

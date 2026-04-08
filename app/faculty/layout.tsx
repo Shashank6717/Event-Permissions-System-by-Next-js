@@ -37,9 +37,9 @@ export default async function FacultyLayout({
   }
 
   return (
-    <div className="flex min-h-screen">
+    <div className="flex min-h-screen flex-col bg-gradient-to-b from-white via-emerald-50/40 to-slate-50 md:flex-row">
       <Sidebar role={user.role as UserRole} userName={user.name} />
-      <main className="flex-1 p-8">{children}</main>
+      <main className="min-w-0 flex-1 px-4 py-6 md:p-8">{children}</main>
     </div>
   );
 }

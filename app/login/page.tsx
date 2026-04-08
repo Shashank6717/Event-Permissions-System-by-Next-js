@@ -1,4 +1,4 @@
-// import { AuthForm } from "@/components/auth/auth-form";
+﻿// import { AuthForm } from "@/components/auth/auth-form";
 // import { Home } from "lucide-react";
 // import Link from "next/link";
 // import {
@@ -49,21 +49,18 @@ import { Home } from "lucide-react"
 import Link from "next/link"
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
-import { Button } from "@/components/ui/button"
 
 export default function LoginPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-b from-slate-50 to-slate-100">
-      <header className="border-b bg-white shadow-sm">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white via-emerald-50/30 to-slate-50">
+      <header className="border-b bg-white/90 shadow-sm backdrop-blur">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-2">
-            <div className="bg-primary text-white p-1.5 rounded-md">
+            <div className="bg-emerald-600 text-white p-1.5 rounded-md">
               <Home className="h-5 w-5" />
             </div>
             <span className="font-semibold text-lg">Event Permission System</span>
@@ -81,10 +78,9 @@ export default function LoginPage() {
 
       <main className="flex-1 flex items-center justify-center p-4">
         <div className="w-full max-w-md">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold tracking-tight">Sign In</h1>
-            <p className="text-muted-foreground mt-2">Access your Event Permission System account</p>
-          </div>
+          <p className="mb-4 text-center text-sm text-muted-foreground">
+            Sign in to keep your requests moving smoothly.
+          </p>
 
           <AuthForm type="login" />
 {/* 
@@ -101,7 +97,7 @@ export default function LoginPage() {
 
       <footer className="py-4 border-t text-center text-sm text-muted-foreground">
         <div className="container mx-auto">
-          © {new Date().getFullYear()} Event Permission System. All rights reserved.
+          (c) {new Date().getFullYear()} Event Permission System. All rights reserved.
         </div>
       </footer>
     </div>

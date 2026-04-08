@@ -1,22 +1,39 @@
-import { AuthForm } from "@/components/auth/auth-form";
-import { Button } from "@/components/ui/button";
+﻿import { AuthForm } from "@/components/auth/auth-form";
 import { Home } from "lucide-react";
 import Link from "next/link";
 
 export default function RegisterPage() {
   return (
-    <div className="container mx-auto flex min-h-screen items-center justify-center p-4">
-      <div className="w-full max-w-md">
-      <Link href={"/"} className="mx-auto text-center block">
-        {/* <h1 className="flex items-center justify-center mt-5">Redirect to <Home/></h1> */}
-        <Button variant="outline" className="mt-5 text-center">Redirect to <Home className="ml-2"/></Button>
-        </Link>
-        <h1 className="mb-8 text-center text-3xl font-bold">
-          Event Permission System
-        </h1>
-        <AuthForm type="register" />
-        
-      </div>
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-white via-emerald-50/30 to-slate-50">
+      <header className="border-b bg-white/90 shadow-sm backdrop-blur">
+        <div className="container mx-auto px-4 py-3 flex items-center justify-between">
+          <Link href="/" className="flex items-center space-x-2">
+            <div className="bg-emerald-600 text-white p-1.5 rounded-md">
+              <Home className="h-5 w-5" />
+            </div>
+            <span className="font-semibold text-lg">Event Permission System</span>
+          </Link>
+          <Link href="/login" className="text-sm font-medium text-emerald-700 hover:text-emerald-800">
+            Sign in
+          </Link>
+        </div>
+      </header>
+
+      <main className="flex-1 flex items-center justify-center p-4">
+        <div className="w-full max-w-md">
+          <div className="mb-4 text-center text-sm text-muted-foreground">
+            A lighter, clearer way to request and track approvals.
+          </div>
+
+          <AuthForm type="register" />
+        </div>
+      </main>
+
+      <footer className="py-4 border-t text-center text-sm text-muted-foreground">
+        <div className="container mx-auto">
+          (c) {new Date().getFullYear()} Event Permission System. All rights reserved.
+        </div>
+      </footer>
     </div>
   );
 }

@@ -78,10 +78,21 @@ export function AuthForm({ type }: AuthFormProps) {
           if (profileError) throw profileError;
         }
 
-        setSuccess("Registration successful! Redirecting to login...");
-        setTimeout(() => {
-          router.push("/login");
-        }, 2000);
+        if (authData?.session) {
+          setSuccess("Account created! Redirecting...");
+          setTimeout(() => {
+            if (role === UserRole.STUDENT) {
+              router.push("/student/dashboard");
+            } else {
+              router.push("/faculty/dashboard");
+            }
+          }, 1000);
+        } else {
+          setSuccess("Registration successful! Please check your email to confirm.");
+          setTimeout(() => {
+            router.push("/login");
+          }, 2000);
+        }
       } else {
         // Login with Supabase Auth
         const { data: signInData, error: signInError } =

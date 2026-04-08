@@ -64,9 +64,9 @@ async function DashboardContent() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Student Dashboard</h1>
+        <h1 className="text-3xl font-bold">Your dashboard</h1>
         <p className="text-muted-foreground">
-          Manage your event permission requests
+          A calm overview of your event requests and approvals.
         </p>
       </div>
 
@@ -111,50 +111,52 @@ async function DashboardContent() {
       </div>
 
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-semibold">Recent Requests</h2>
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <h2 className="text-xl font-semibold">Recent requests</h2>
           <Link href="/student/new-request">
-            <Button>New Request</Button>
+            <Button>New request</Button>
           </Link>
         </div>
 
         {recentRequests?.length ? (
           <div className="rounded-md border">
-            <div className="p-4">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b">
-                    <th className="py-2 text-left font-medium">Event</th>
-                    <th className="py-2 text-left font-medium">Date</th>
-                    <th className="py-2 text-left font-medium">Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentRequests.map((request) => (
-                    <tr key={request.id} className="border-b last:border-0">
-                      <td className="py-2">{request.event_name}</td>
-                      <td className="py-2">
-                        {new Date(request.event_date).toLocaleDateString()}
-                      </td>
-                      <td className="py-2">
-                        <span
-                          className={`rounded px-2 py-1 text-xs font-medium
-                          ${
-                            request.status === RequestStatus.APPROVED
-                              ? "bg-green-100 text-green-800"
-                              : request.status === RequestStatus.REJECTED
-                              ? "bg-red-100 text-red-800"
-                              : "bg-yellow-100 text-yellow-800"
-                          }
-                        `}
-                        >
-                          {request.status}
-                        </span>
-                      </td>
+            <div className="overflow-x-auto">
+              <div className="p-4">
+                <table className="w-full min-w-[520px] text-sm">
+                  <thead>
+                    <tr className="border-b">
+                      <th className="py-2 text-left font-medium">Event</th>
+                      <th className="py-2 text-left font-medium">Date</th>
+                      <th className="py-2 text-left font-medium">Status</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {recentRequests.map((request) => (
+                      <tr key={request.id} className="border-b last:border-0">
+                        <td className="py-2">{request.event_name}</td>
+                        <td className="py-2">
+                          {new Date(request.event_date).toLocaleDateString()}
+                        </td>
+                        <td className="py-2">
+                          <span
+                            className={`rounded-full px-2.5 py-1 text-xs font-medium
+                            ${
+                              request.status === RequestStatus.APPROVED
+                                ? "bg-green-100 text-green-800"
+                                : request.status === RequestStatus.REJECTED
+                                ? "bg-red-100 text-red-800"
+                                : "bg-yellow-100 text-yellow-800"
+                            }
+                          `}
+                          >
+                            {request.status}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         ) : (
@@ -162,10 +164,10 @@ async function DashboardContent() {
             <ClipboardList className="mx-auto h-12 w-12 text-muted-foreground" />
             <h3 className="mt-4 text-lg font-semibold">No requests yet</h3>
             <p className="mt-2 text-sm text-muted-foreground">
-              Create your first permission request to get started.
+              Create your first request and we will guide the rest.
             </p>
             <Link href="/student/new-request" className="mt-4 inline-block">
-              <Button>Create Request</Button>
+              <Button>Create request</Button>
             </Link>
           </div>
         )}

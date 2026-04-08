@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { use } from "react";
 import {
   Card,
   CardContent,
@@ -17,17 +16,17 @@ import supabase from "@/lib/supabase";
 import { ExternalLink, FileText, Calendar, MapPin } from "lucide-react";
 
 interface RequestDetailProps {
-  params: Promise<{
+  params: {
     id: string;
-  }>;
+  };
 }
 
 export default function RequestDetail({ params }: RequestDetailProps) {
-  const resolvedParams = use(params);
+  const { id } = params;
   const router = useRouter();
   const [request, setRequest] = useState<any>(null);
   const [responseMessage, setResponseMessage] = useState("");
-  const [loading, setLoading] = useState(false);
+  const [loadingAction, setLoadingAction] = useState<"approve" | "reject" | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [user, setUser] = useState<any>(null);
 
@@ -44,7 +43,7 @@ export default function RequestDetail({ params }: RequestDetailProps) {
       const { data, error } = await supabase
         .from("permission_requests")
         .select("*")
-        .eq("id", resolvedParams.id)
+        .eq("id", id)
         .single();
 
       if (error) {
@@ -73,10 +72,10 @@ export default function RequestDetail({ params }: RequestDetailProps) {
     };
 
     fetchRequestDetails();
-  }, [resolvedParams.id, router]);
+  }, [id, router]);
 
   const handleResponse = async (status: RequestStatus) => {
-    setLoading(true);
+    setLoadingAction(status === RequestStatus.APPROVED ? "approve" : "reject");
     setError(null);
 
     try {
@@ -88,7 +87,7 @@ export default function RequestDetail({ params }: RequestDetailProps) {
           responded_at: new Date().toISOString(),
           responded_by: user.id,
         })
-        .eq("id", resolvedParams.id);
+        .eq("id", id);
 
       if (error) throw error;
 
@@ -96,7 +95,7 @@ export default function RequestDetail({ params }: RequestDetailProps) {
       const { data } = await supabase
         .from("permission_requests")
         .select("*")
-        .eq("id", resolvedParams.id)
+        .eq("id", id)
         .single();
 
       setRequest(data);
@@ -109,20 +108,20 @@ export default function RequestDetail({ params }: RequestDetailProps) {
         err instanceof Error ? err.message : "Failed to respond to the request"
       );
     } finally {
-      setLoading(false);
+      setLoadingAction(null);
     }
   };
 
   if (error) {
     return (
       <div className="rounded-lg border p-8 text-center">
-        <h3 className="text-lg font-semibold text-red-500">{error}</h3>
+        <h3 className="text-lg font-semibold text-red-600">{error}</h3>
         <Button
           className="mt-4"
           variant="outline"
           onClick={() => router.push("/faculty/requests")}
         >
-          Back to Requests
+          Back to requests
         </Button>
       </div>
     );
@@ -138,13 +137,18 @@ export default function RequestDetail({ params }: RequestDetailProps) {
 
   return (
     <div className="max-w-4xl mx-auto space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Request Details</h1>
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <h1 className="text-3xl font-bold">Request details</h1>
+          <p className="text-muted-foreground">
+            Review the request and leave a clear response.
+          </p>
+        </div>
         <Button
           variant="outline"
           onClick={() => router.push("/faculty/requests")}
         >
-          Back to Requests
+          Back to requests
         </Button>
       </div>
 
@@ -238,14 +242,15 @@ export default function RequestDetail({ params }: RequestDetailProps) {
           {request.status === RequestStatus.PENDING && (
             <Card>
               <CardHeader>
-                <CardTitle>Response</CardTitle>
+                <CardTitle>Decision</CardTitle>
               </CardHeader>
               <CardContent>
                 <Textarea
-                  placeholder="Write your response or feedback here..."
+                  placeholder="Add a short note for the student (optional)."
                   value={responseMessage}
                   onChange={(e) => setResponseMessage(e.target.value)}
                   rows={4}
+                  disabled={loadingAction !== null}
                 />
               </CardContent>
               <CardFooter className="flex justify-between gap-2">
@@ -253,16 +258,16 @@ export default function RequestDetail({ params }: RequestDetailProps) {
                   variant="outline"
                   className="w-1/2 bg-red-50 hover:bg-red-100 text-red-600 hover:text-red-700"
                   onClick={() => handleResponse(RequestStatus.REJECTED)}
-                  disabled={loading}
+                  disabled={loadingAction !== null}
                 >
-                  {loading ? "Submitting..." : "Reject"}
+                  {loadingAction === "reject" ? "Submitting..." : "Decline"}
                 </Button>
                 <Button
                   className="w-1/2 bg-green-600 hover:bg-green-700"
                   onClick={() => handleResponse(RequestStatus.APPROVED)}
-                  disabled={loading}
+                  disabled={loadingAction !== null}
                 >
-                  {loading ? "Submitting..." : "Approve"}
+                  {loadingAction === "approve" ? "Submitting..." : "Approve"}
                 </Button>
               </CardFooter>
             </Card>
@@ -271,7 +276,7 @@ export default function RequestDetail({ params }: RequestDetailProps) {
           {request.status !== RequestStatus.PENDING && (
             <Card>
               <CardHeader>
-                <CardTitle>Response</CardTitle>
+                <CardTitle>Decision</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>

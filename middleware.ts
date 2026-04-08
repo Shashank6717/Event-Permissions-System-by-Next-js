@@ -32,8 +32,8 @@ export async function middleware(req: NextRequest) {
 
       if (error) {
         console.error("Error fetching user role:", error);
-        // If there's an error, redirect to login as a fallback
-        return NextResponse.redirect(new URL("/login", req.url));
+        // Allow the auth page to render to avoid redirect loops
+        return res;
       }
 
       if (userData?.role === "student") {

@@ -59,7 +59,7 @@ async function HistoryContent() {
       {processedRequests?.length ? (
         <div className="rounded-lg border overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full">
+            <table className="w-full min-w-[720px] text-sm">
               <thead className="bg-muted/50">
                 <tr>
                   <th className="py-3 px-4 text-left font-medium">Student</th>
@@ -125,12 +125,12 @@ async function HistoryContent() {
       ) : (
         <div className="rounded-lg border p-8 text-center">
           <History className="mx-auto h-12 w-12 text-muted-foreground" />
-          <h3 className="mt-4 text-lg font-semibold">No request history</h3>
+          <h3 className="mt-4 text-lg font-semibold">No history yet</h3>
           <p className="mt-2 text-sm text-muted-foreground">
-            There are no processed permission requests in the history.
+            Processed requests will show up here once they are reviewed.
           </p>
           <Link href="/faculty/requests" className="mt-4 inline-block">
-            <Button variant="outline">View Pending Requests</Button>
+            <Button variant="outline">View pending</Button>
           </Link>
         </div>
       )}
@@ -142,9 +142,9 @@ export default async function RequestHistory() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Request History</h1>
+        <h1 className="text-3xl font-bold">Request history</h1>
         <p className="text-muted-foreground">
-          View previously processed student permission requests
+          A tidy record of processed requests.
         </p>
       </div>
 
