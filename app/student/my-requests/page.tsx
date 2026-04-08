@@ -9,19 +9,23 @@ import Loader from "@/components/ui/Loader";
 
 // Create a component for the actual content
 async function MyRequestsContent() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
-  // Get user session
+  // Get authenticated user from auth server
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user: authUser },
+  } = await supabase.auth.getUser();
+
+  if (!authUser) {
+    return null;
+  }
 
   // Get all permission requests for the student
   const { data: requests, error } = await supabase
     .from("permission_requests")
     .select("*")
-    .eq("student_id", session?.user.id)
+    .eq("student_id", authUser.id)
     .order("created_at", { ascending: false });
 
   if (error) {

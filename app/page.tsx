@@ -155,17 +155,17 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { redirect } from "next/navigation"
 
 export default async function Home() {
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const supabase = createServerComponentClient({ cookies: () => cookieStore })
 
   // Check if user is already authenticated
   const {
-    data: { session },
-  } = await supabase.auth.getSession()
+    data: { user: authUser },
+  } = await supabase.auth.getUser()
 
-  if (session) {
+  if (authUser) {
     // Get user role to redirect appropriately
-    const { data: userData } = await supabase.from("users").select("role").eq("id", session.user.id).single()
+    const { data: userData } = await supabase.from("users").select("role").eq("id", authUser.id).single()
 
     if (userData?.role === "student") {
       redirect("/student/dashboard")

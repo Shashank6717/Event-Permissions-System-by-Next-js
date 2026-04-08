@@ -9,15 +9,15 @@ export default async function StudentLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
-  // Check if user is authenticated
+  // Check if user is authenticated with an auth-server verified user
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user: authUser },
+  } = await supabase.auth.getUser();
 
-  if (!session) {
+  if (!authUser) {
     redirect("/login");
   }
 
@@ -25,7 +25,7 @@ export default async function StudentLayout({
   const { data: user, error } = await supabase
     .from("users")
     .select("name, role")
-    .eq("id", session.user.id)
+    .eq("id", authUser.id)
     .single();
 
   if (error || !user || user.role !== UserRole.STUDENT) {

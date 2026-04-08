@@ -121,7 +121,6 @@ export function AuthForm({ type }: AuthFormProps) {
         setSuccess("Login successful! Redirecting...");
 
         setTimeout(() => {
-          router.refresh();
           if (userData?.role === UserRole.STUDENT) {
             router.push("/student/dashboard");
           } else {

@@ -11,17 +11,17 @@ import Loader from "@/components/ui/Loader";
 
 // Create a component for the actual content
 async function DashboardContent() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createServerComponentClient<Database>({
     cookies: () => cookieStore,
   });
 
-  // Get user session
+  // Get authenticated user from auth server
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user: authUser },
+  } = await supabase.auth.getUser();
 
-  if (!session) {
+  if (!authUser) {
     return <div>Loading... Please wait.</div>;
   }
 
@@ -29,26 +29,26 @@ async function DashboardContent() {
   const { data: pendingCount, error: pendingError } = await supabase
     .from("permission_requests")
     .select("id", { count: "exact", head: true })
-    .eq("student_id", session.user.id)
+    .eq("student_id", authUser.id)
     .eq("status", RequestStatus.PENDING);
 
   const { data: approvedCount, error: approvedError } = await supabase
     .from("permission_requests")
     .select("id", { count: "exact", head: true })
-    .eq("student_id", session.user.id)
+    .eq("student_id", authUser.id)
     .eq("status", RequestStatus.APPROVED);
 
   const { data: rejectedCount, error: rejectedError } = await supabase
     .from("permission_requests")
     .select("id", { count: "exact", head: true })
-    .eq("student_id", session.user.id)
+    .eq("student_id", authUser.id)
     .eq("status", RequestStatus.REJECTED);
 
   // Get recent requests
   const { data: recentRequests, error: recentError } = await supabase
     .from("permission_requests")
     .select("*")
-    .eq("student_id", session.user.id)
+    .eq("student_id", authUser.id)
     .order("created_at", { ascending: false })
     .limit(5);
 

@@ -9,19 +9,23 @@ import { Suspense } from "react";
 
 // Create a component for the actual content
 async function HistoryContent() {
-  const cookieStore = cookies();
+  const cookieStore = await cookies();
   const supabase = createServerComponentClient({ cookies: () => cookieStore });
 
-  // Get user session
+  // Get authenticated user from auth server
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user: authUser },
+  } = await supabase.auth.getUser();
+
+  if (!authUser) {
+    return null;
+  }
 
   // Get user department
   const { data: userData } = await supabase
     .from("users")
     .select("department")
-    .eq("id", session?.user.id)
+    .eq("id", authUser.id)
     .single();
 
   const department = userData?.department || "";

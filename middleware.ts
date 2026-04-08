@@ -7,27 +7,27 @@ export async function middleware(req: NextRequest) {
   const supabase = createMiddlewareClient<Database>({ req, res });
 
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user: authUser },
+  } = await supabase.auth.getUser();
 
   const pathname = req.nextUrl.pathname;
 
   // If not logged in and trying to access protected routes, redirect to login
   if (
-    !session &&
+    !authUser &&
     (pathname.startsWith("/student") || pathname.startsWith("/faculty"))
   ) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
   // If logged in but trying to access auth pages, redirect to dashboard
-  if (session && (pathname === "/login" || pathname === "/register")) {
+  if (authUser && (pathname === "/login" || pathname === "/register")) {
     try {
       // Get user role to redirect appropriately
       const { data: userData, error } = await supabase
         .from("users")
         .select("role")
-        .eq("id", session.user.id)
+        .eq("id", authUser.id)
         .single();
 
       if (error) {
@@ -48,12 +48,12 @@ export async function middleware(req: NextRequest) {
   }
 
   // If logged in as student but trying to access faculty routes
-  if (session && pathname.startsWith("/faculty")) {
+  if (authUser && pathname.startsWith("/faculty")) {
     try {
       const { data: userData, error } = await supabase
         .from("users")
         .select("role")
-        .eq("id", session.user.id)
+        .eq("id", authUser.id)
         .single();
 
       if (error || userData?.role === "student") {
@@ -66,12 +66,12 @@ export async function middleware(req: NextRequest) {
   }
 
   // If logged in as faculty but trying to access student routes
-  if (session && pathname.startsWith("/student")) {
+  if (authUser && pathname.startsWith("/student")) {
     try {
       const { data: userData, error } = await supabase
         .from("users")
         .select("role")
-        .eq("id", session.user.id)
+        .eq("id", authUser.id)
         .single();
 
       if (error || userData?.role !== "student") {
