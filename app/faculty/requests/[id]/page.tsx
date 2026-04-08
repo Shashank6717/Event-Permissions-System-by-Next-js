@@ -12,6 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { RequestStatus } from "@/types";
+import type { Database } from "@/types/supabase";
+import type { User } from "@supabase/supabase-js";
 import supabase from "@/lib/supabase";
 import { ExternalLink, FileText, Calendar, MapPin } from "lucide-react";
 
@@ -24,11 +26,13 @@ interface RequestDetailProps {
 export default function RequestDetail({ params }: RequestDetailProps) {
   const { id } = params;
   const router = useRouter();
-  const [request, setRequest] = useState<any>(null);
+  const [request, setRequest] = useState<
+    Database["public"]["Tables"]["permission_requests"]["Row"] | null
+  >(null);
   const [responseMessage, setResponseMessage] = useState("");
   const [loadingAction, setLoadingAction] = useState<"approve" | "reject" | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [user, setUser] = useState<any>(null);
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const fetchRequestDetails = async () => {
@@ -79,6 +83,9 @@ export default function RequestDetail({ params }: RequestDetailProps) {
     setError(null);
 
     try {
+      if (!user) {
+        throw new Error("User session not available");
+      }
       const { error } = await supabase
         .from("permission_requests")
         .update({

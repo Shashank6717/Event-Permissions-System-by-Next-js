@@ -26,7 +26,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import  LoaderWrapper  from "@/components/ui/LoaderWrapper";
 
 interface AuthFormProps {
   type: "login" | "register";
